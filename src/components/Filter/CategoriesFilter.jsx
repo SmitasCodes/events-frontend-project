@@ -37,7 +37,7 @@ function CategoriesFilter(props) {
                 value="visi"
                 defaultValue=""
               >
-                Visi&nbsp;&nbsp;&#9662;
+                All&nbsp;&nbsp;&#9662;
               </option>
 
               {categories.map(({ _id, title }) => (

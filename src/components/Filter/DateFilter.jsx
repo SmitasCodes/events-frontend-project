@@ -16,7 +16,7 @@ const DateFilter = (props) => {
         <option
           value=""
           disabled
-          selected
+          defaultValue
         >
           Select a date&nbsp;&nbsp;&#9662;
         </option>
