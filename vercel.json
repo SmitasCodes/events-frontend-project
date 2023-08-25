@@ -1,5 +1,5 @@
 {
   "routes": [
-    { "src": "/api/(.*)", "dest": "https://events-80pg.onrender.com/$1" }
+    {"dest": "https://events-80pg.onrender.com/" }
   ]
 }
