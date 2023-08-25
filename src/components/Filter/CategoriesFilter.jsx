@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-
 import categoriesServices from "../../services/categoriesServices";
 import "../CSS/CategoriesFilter.css";
 
@@ -22,6 +21,7 @@ function CategoriesFilter(props) {
     };
 
     getCategoriesData();
+    console.log(categories)
   }, []);
 
   return (
