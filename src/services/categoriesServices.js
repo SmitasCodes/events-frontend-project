@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_URL = "/api/categories/";
+const API_URL = "https://events-80pg.onrender.com/api/categories/"; // Use the absolute URL
 
 const userStr = localStorage.getItem("user");
 const userObj = JSON.parse(userStr);

@@ -1,54 +1,70 @@
 import axios from "axios";
 
-const API_URL = "/api/events/";
+const API_URL = "https://events-80pg.onrender.com/api/events/"; // Use the absolute URL
 
 //========================= GET ALL EVENTS =======================//
 
 const getEvents = async () => {
-  const response = await axios.get(API_URL);
-  return response.data;
+  try {
+    const response = await axios.get(API_URL);
+    return response.data;
+  } catch (error) {
+    console.error(error);
+  }
 };
 
 //========================= GET USER EVENTS =======================//
 
 const getUserEvents = async () => {
-  const userStr = localStorage.getItem("user");
-  const userObj = JSON.parse(userStr);
-  const token = userObj ? userObj.token : null;
-  const response = await axios.get(API_URL + "user", {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  });
-  return response.data;
+  try {
+    const userStr = localStorage.getItem("user");
+    const userObj = JSON.parse(userStr);
+    const token = userObj ? userObj.token : null;
+    const response = await axios.get(API_URL + "user", {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return response.data;
+  } catch (error) {
+    console.error(error);
+  }
 };
 
 //========================= UPDATE USER EVENTS =======================//
 
 const updateUserEvents = async (eventID, updatedEvent) => {
-  const userStr = localStorage.getItem("user");
-  const userObj = JSON.parse(userStr);
-  const token = userObj ? userObj.token : null;
-  const response = await axios.put(API_URL + eventID, updatedEvent, {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  });
-  return response.data;
+  try {
+    const userStr = localStorage.getItem("user");
+    const userObj = JSON.parse(userStr);
+    const token = userObj ? userObj.token : null;
+    const response = await axios.put(API_URL + eventID, updatedEvent, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return response.data;
+  } catch (error) {
+    console.error(error);
+  }
 };
 
 //=========================  DELETE USER EVENTS =======================//
 
 const deleteUserEvents = async (eventID) => {
-  const userStr = localStorage.getItem("user");
-  const userObj = JSON.parse(userStr);
-  const token = userObj ? userObj.token : null;
-  const response = await axios.delete(API_URL + eventID, {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  });
-  return response.data;
+  try {
+    const userStr = localStorage.getItem("user");
+    const userObj = JSON.parse(userStr);
+    const token = userObj ? userObj.token : null;
+    const response = await axios.delete(API_URL + eventID, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return response.data;
+  } catch (error) {
+    console.error(error);
+  }
 };
 
 const eventServices = {
