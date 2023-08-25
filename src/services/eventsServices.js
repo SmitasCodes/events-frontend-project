@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_URL = "https://events-80pg.onrender.com/api/events/"; // Use the absolute URL
+const API_URL = "https://events-80pg.onrender.com/api/events/"; 
 
 //========================= GET ALL EVENTS =======================//
 

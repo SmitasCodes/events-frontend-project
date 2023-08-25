@@ -1,55 +1,56 @@
-import { createContext, useContext, useState, useEffect } from "react";
+import axios from "axios";
 
-const AuthContext = createContext(null);
+const API_URL = "https://events-80pg.onrender.com/api/users/"; 
 
-export const useAuth = () => {
-  return useContext(AuthContext) || {};
-};
+//======================== REGISTER USER ======================//
 
-export const AuthProvider = ({ children }) => {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [userRole, setUserRole] = useState(null);
-  const [userID, setUserID] = useState(null);
-  const [userEmail, setUserEmail] = useState(null);
-  const [loading, setLoading] = useState(true);
+// Registering User
+const register = async (userData) => {
+  try {
+    const response = await axios.post(API_URL, userData);
 
-  const checkAuthStatus = () => {
-    const userString = localStorage.getItem("user");
-    const userObj = JSON.parse(userString);
-
-    if (userObj) {
-      setIsLoggedIn(true);
-      setUserRole(userObj.role);
-      setUserID(userObj);
-      setUserEmail(userObj.email);
-    } else {
-      setIsLoggedIn(false);
-      setUserRole(null);
-      setUserID(null);
-      setUserEmail(null);
+    if (response.data) {
+      const { token, role, email } = response.data;
+      const user = { token, role, email };
+      localStorage.setItem("user", JSON.stringify(user));
     }
 
-    setLoading(false);
-  };
-
-  useEffect(() => {
-    checkAuthStatus();
-  }, [isLoggedIn]);
-
-  if (loading) {
-    return <div>Loading...</div>;
+    return response.data;
+  } catch (error) {
+    console.error(error);
   }
-  return (
-    <AuthContext.Provider
-      value={{
-        isLoggedIn,
-        userRole,
-        userID,
-        userEmail,
-        checkAuthStatus,
-      }}
-    >
-      {children}
-    </AuthContext.Provider>
-  );
 };
+
+//======================== LOGIN USER ======================//
+
+// Login user
+const login = async (userData) => {
+  try {
+    const response = await axios.post(API_URL + "login", userData);
+    console.log("logindata", response, userData);
+    if (response.data) {
+      const { token, role, email } = response.data;
+      const user = { token, role, email };
+      localStorage.setItem("user", JSON.stringify(user));
+    }
+
+    return response.data;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+//======================== LOGOUT USER ======================//
+
+// Logout user
+const logout = () => {
+  localStorage.removeItem("user");
+};
+
+const authServices = {
+  register,
+  logout,
+  login,
+};
+
+export default authServices;
