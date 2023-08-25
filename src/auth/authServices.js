@@ -1,35 +1,43 @@
 import axios from "axios";
 
-const API_URL = "/api/users/";
+const API_URL = "https://events-80pg.onrender.com/api/users/"; 
 
 //======================== REGISTER USER ======================//
 
 // Registering User
 const register = async (userData) => {
-  const response = await axios.post(API_URL, userData);
+  try {
+    const response = await axios.post(API_URL, userData);
 
-  if (response.data) {
-    const { token, role, email } = response.data;
-    const user = { token, role, email };
-    localStorage.setItem("user", JSON.stringify(user));
+    if (response.data) {
+      const { token, role, email } = response.data;
+      const user = { token, role, email };
+      localStorage.setItem("user", JSON.stringify(user));
+    }
+
+    return response.data;
+  } catch (error) {
+    console.error(error);
   }
-
-  return response.data;
 };
 
 //======================== LOGIN USER ======================//
 
 // Login user
 const login = async (userData) => {
-  const response = await axios.post(API_URL + "login", userData);
-  console.log("logindata", response, userData);
-  if (response.data) {
-    const { token, role, email } = response.data;
-    const user = { token, role, email };
-    localStorage.setItem("user", JSON.stringify(user));
-  }
+  try {
+    const response = await axios.post(API_URL + "login", userData);
+    console.log("logindata", response, userData);
+    if (response.data) {
+      const { token, role, email } = response.data;
+      const user = { token, role, email };
+      localStorage.setItem("user", JSON.stringify(user));
+    }
 
-  return response.data;
+    return response.data;
+  } catch (error) {
+    console.error(error);
+  }
 };
 
 //======================== LOGOUT USER ======================//
